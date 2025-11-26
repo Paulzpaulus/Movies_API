@@ -1,7 +1,7 @@
 import random
-import movie_storage_sql as db
+import storage.movie_storage_sql as db
 from colorama import Fore, Back, Style, init
-from helpers_utl import normalize
+from helpers.helpers_utl import normalize
 import os
 from dotenv import load_dotenv
 import requests
@@ -39,7 +39,8 @@ def fetch_movie_from_api(title):
 def generate_website():
     """Generate index.html using template + current movie database."""
     movie_collection = db.list_movies()
-    with open("_static/index_template.html", "r") as f:
+    with open("static/index_template.html", "r") as f:
+
         template = f.read()
     # 3. Movie Grid konstruieren - weil css
     movie_items = ""
@@ -59,7 +60,7 @@ def generate_website():
     html_output = template.replace("__TEMPLATE_TITLE__", "My Movie Collection")
     html_output = html_output.replace("__TEMPLATE_MOVIE_GRID__", movie_items)
 
-    with open("index.html", "w") as f:
+    with open("static/index.html", "w") as f:
         f.write(html_output)
 
     print("Website was generated successfully.")
